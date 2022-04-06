@@ -11,18 +11,17 @@ Address string
 Phone Int
 EmergencyContact string
 
-MedicalCenter
+Appointments
 -
-CenterID PK int
-Name string INDEX
-Address string
-Phone int
+id int PK
+DoctorID int FK >- Doctor.DoctorID
+PatientID int FK >- Patient.PatientID
+AppointmentTime datetime 
 
 Doctor
 -
 DoctorID PK int
 Name string INDEX
-MedicalOffice int FK >- MedicalCenter.CenterID 
 
 Diseases
 -
@@ -32,9 +31,9 @@ Disease string
 Diagnoses
 -
 ID PK int
-DoctorID int FK >- Doctor.DoctorID
-PatientID int FK >- Patient.PatientID
+ApptID int FK >- Appointments.id
 DiseaseID int FK >- Diseases.DiseaseID
+Notes text
 
 ## Craigslist Schema
 
@@ -93,6 +92,8 @@ Matches
 -
 MatchID int PK
 RefereeID int FK >- Referees.RefereeID
+AssistantRef1 int FK >- Referees.RefereeID
+AssistantRef2 int FK >- Referees.RefereeID
 HomeTeam int FK >- Teams.TeamID
 AwayTeam int FK >- Teams.TeamID
 Season int FK >- Seasons.SeasonID
@@ -102,3 +103,17 @@ Seasons
 SeasonID int PK
 StartDate date
 EndDate date
+
+Results
+-
+ResultsId int PK
+TeamID int FK >- Teams.TeamID
+MatchID int FK >- Matches.MatchID
+Result
+
+Lineups
+-
+id int PK
+PlayerID int FK >- Players.PlayerID
+MatchID int FK >- Matches.MatchID
+TeamID int FK >- Teams.TeamID
